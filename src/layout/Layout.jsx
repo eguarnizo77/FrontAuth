@@ -1,6 +1,6 @@
 import React from "react";
 
-import NavBarBasic from "./NavBarBasic";
+import NavBar from "./NavBar";
 import Header from "./Header";
 import Footer from "./Footer";
 
@@ -9,7 +9,7 @@ import "../styles/layout.css";
 const Layout = ({children}) => {    
   return (
     <>
-        <NavBarBasic/>
+        <NavBar/>
         <div className="main-content mt-0">
             <Header/>
             {children}

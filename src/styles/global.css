@@ -488,6 +488,13 @@ progress {
     font-size: 2.5rem;
   }
 }
+
+.d-hidden{
+  display: hidden;
+}
+.d-block{
+  display: block;
+}
 .list-inline,
 .list-unstyled {
   padding-left: 0;
@@ -2197,9 +2204,9 @@ progress {
 .form-control:focus {
   color: #495057;
   background-color: #fff;
-  border-color: #e293d3;
+  border-color: #35d8fc;
   outline: 0;
-  box-shadow: 0 0 0 2px #e9aede;
+  box-shadow: 0 0 0 2px #21d5fdbc;
 }
 .form-control::-webkit-date-and-time-value {
   height: 1.4rem;
@@ -16070,7 +16077,7 @@ fieldset:disabled .btn {
   background: transparent;
 }
 .card {
-  box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 20px 27px 0 rgb(0 0 0 / 20%);
 }
 .card .card-header {
   padding: 1.5rem;

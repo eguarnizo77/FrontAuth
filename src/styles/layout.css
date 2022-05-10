@@ -1,4 +1,5 @@
-.bg-main-background{
-    background-image: url("../assets/img/main-layaout.jpg");
-    background-size: cover;
+.bg-main-background {
+  background-image: url("../assets/img/main-layout.svg");
+  background-size: cover;  
 }
+/*  */

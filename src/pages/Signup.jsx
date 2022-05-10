@@ -1,9 +1,13 @@
-import React from 'react';
+import React from "react";
 
-const Signup = () => {
-    return (
-        <h1>Register</h1>
-    )
-}
+import Container from "../containers/SignUp";
 
-export default Signup;
+const SignUp = () => {
+  return (
+    <>
+      <Container />
+    </>
+  );
+};
+
+export default SignUp;

@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Home from "../pages/Home";
-import Sign from "../pages/Sign";
+import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Profile from "../pages/Home";
 import NotFound from "../pages/Home";
@@ -13,7 +13,7 @@ function App() {
     <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="sign" element={<Sign />} />
+        <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
         <Route path="profile" element={<Profile />} />
         <Route path="*" element={<NotFound />} />
