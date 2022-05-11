@@ -1,16 +1,16 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
-import Profile from "../pages/Home";
+import Profile from "../pages/Profile";
 import NotFound from "../pages/Home";
-import Layout from "../layout/Layout";
+
 
 function App() {
   return (
-    <Layout>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="login" element={<Login />} />
@@ -18,8 +18,8 @@ function App() {
         <Route path="profile" element={<Profile />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </Layout>
-  )
+    </BrowserRouter>
+  );
 }
 
 export default App;

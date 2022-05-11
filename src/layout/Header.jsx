@@ -7,7 +7,7 @@ const Header = () => {
 
   return (
     <div className="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg main-layaout bg-main-background">
-      <span className="mask bg-gradient-dark opacity-6"></span>
+      <span className="mask opacity-6"></span>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-5 text-center mx-auto">

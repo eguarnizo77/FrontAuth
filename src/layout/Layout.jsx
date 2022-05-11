@@ -6,16 +6,16 @@ import Footer from "./Footer";
 
 import "../styles/layout.css";
 
-const Layout = ({children}) => {    
+const Layout = ({ children }) => {
   return (
     <>
-        <NavBar/>
-        <div className="main-content mt-0">
-            <Header/>
-            {children}
-        </div>
-        <Footer />
+      <NavBar />
+      <div className="main-content mt-0">
+        <Header />
+        {children}
+      </div>
+      <Footer />
     </>
-  )
-}
+  );
+};
 export default Layout;

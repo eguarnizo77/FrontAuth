@@ -1,8 +1,10 @@
 import React from 'react';
 
+import Container from '../containers/Profile';
+
 const Profile = () => {
     return (
-        <h1>Profile</h1>
+        <Container/>
     )
 }
 
