@@ -1,16 +1,33 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+
+import { Link, useNavigate, useLocation  } from "react-router-dom";
+
+import userContext from "../context/user";
 
 import i18n from "../constants/i18n";
 
 import { BsGlobe } from "react-icons/bs";
 
-const NavBar = () => {  
-  const [dropdownShow, setDropdownShow] = useState(true);
+import imgSpanish from "../assets/img/spanish.png";
+import imgEnglish from "../assets/img/english.png";
+import imgProfile from "../assets/img/hacker.png";
+import imgLogout from "../assets/img/logout.png";
+
+const NavBar = () => {
+  const navigate = useNavigate();
+  let location = useLocation();
+
+  const [showLanguages, setShowLanguages] = useState(false);
+  const [showLogout, setShowLogout] = useState(false);
+  const { isLogged, logout } = useContext(userContext);
+
+  useEffect(() => {
+    if (isLogged === false && location.pathname != "/signup") navigate("/login");    
+  }, [isLogged]);
 
   const handleClickLanguague = (lng) => {
     i18n.changeLanguage(lng);
-    setDropdownShow(false);
+    setShowLanguages(false);
   };
 
   return (
@@ -22,55 +39,121 @@ const NavBar = () => {
         >
           AUTHENTICATION APP
         </Link>
-
-        <div
-          className="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0"
-          id="navigation"
-        >
-          <ul className="navbar-nav navbar-nav-hover mx-auto"></ul>
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <button
-                type="button"
-                className="nav-item btn btn-sm"
-                onClick={() => {
-                  dropdownShow ? setDropdownShow(false) : setDropdownShow(true);
-                }}
-              >
-                <BsGlobe color="white" />
-              </button>
-            </li>
-            <div
-              className={`dropdown-menu dropdown-menu-animation p-3 border-radius-xl mt-lg-5 ${
-                dropdownShow ? "d-hidden" : "d-block"
-              }`}
-            >
-              <ul className="list-group">
-                <li
-                  className="nav-item list-group-item border-0 p-0 leaflet-interactive"
-                  onClick={() => handleClickLanguague("es")}
-                >
-                  <a className="dropdown-item py-2 ps-3 border-radius-md">
-                    <div className="d-flex">
-                      <h6 className="dropdown-header text-dark font-weight-bolder d-flex align-items-center p-0">
-                        Spanish
-                      </h6>
-                    </div>
+        <div className="collapse navbar-collapse">
+          <ul className="navbar-nav navbar-nav-hover ms-auto">
+            <div className="row">
+              <div className="col-auto m-auto">
+                <li className="nav-item dropdown pe-2 d-flex align-items-center">
+                  <a
+                    className="px-4 cursor-pointer"
+                    onClick={() => {
+                      if (showLanguages) {
+                        setShowLanguages(false);
+                      } else {
+                        setShowLanguages(true);
+                        setShowLogout(false);
+                      }
+                    }}
+                  >
+                    <BsGlobe color="white" size={25} />
                   </a>
+                  <ul
+                    className={`dropdown-menu border-radius-xl mt-lg-2 ${
+                      showLanguages ? "show" : "d-none"
+                    }`}
+                  >
+                    <li>
+                      <a
+                        className="dropdown-item border-radius-md"
+                        onClick={() => handleClickLanguague("es")}
+                      >
+                        <div className="d-flex py-1">
+                          <img
+                            src={imgSpanish}
+                            className="avatar avatar-sm me-3 my-auto"
+                          />
+                          <div className="d-flex flex-column justify-content-center">
+                            <h6 className="text-sm font-weight-normal mb-1">
+                              Spanish
+                            </h6>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        className="dropdown-item border-radius-md"
+                        onClick={() => handleClickLanguague("en")}
+                      >
+                        <div className="d-flex py-1">
+                          <img
+                            src={imgEnglish}
+                            className="avatar avatar-sm me-3 my-auto"
+                          />
+                          <div className="d-flex flex-column justify-content-center">
+                            <h6 className="text-sm font-weight-normal mb-1">
+                              English
+                            </h6>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                  </ul>
                 </li>
-                <li
-                  className="nav-item list-group-item border-0 p-0 leaflet-interactive"
-                  onClick={() => handleClickLanguague("en")}
-                >
-                  <a className="dropdown-item py-2 ps-3 border-radius-md">
-                    <div className="d-flex">
-                      <h6 className="dropdown-header text-dark font-weight-bolder d-flex align-items-center p-0">
-                        English
-                      </h6>
+              </div>
+              {isLogged ? (
+                <div className="col-auto m-auto">
+                  <li className="nav-item dropdown pe-2 d-flex align-items-center">
+                    <a
+                      className="cursor-pointer"
+                      onClick={() => {
+                        if (showLogout) {
+                          setShowLogout(false);
+                        } else {
+                          setShowLogout(true);
+                          setShowLanguages(false);
+                        }
+                      }}
+                    >
+                      <img
+                        alt="Image"
+                        src={imgProfile}
+                        className="avatar avatar-sm border-radius-lg shadow-sm"
+                      />
+                    </a>
+                    <div className="ms-3 mt-3">
+                      <p className="text-sm mb-0 text-white">Charlie Watson</p>
                     </div>
-                  </a>
-                </li>
-              </ul>
+                    <ul
+                      className={`dropdown-menu border-radius-xl mt-lg-2 ${
+                        showLogout ? "show" : "d-none"
+                      }`}
+                    >
+                      <li>
+                        <a
+                          className="dropdown-item border-radius-md"
+                          onClick={() => logout()}
+                        >
+                          <div className="d-flex py-1">
+                            <img
+                              src={imgLogout}
+                              className="avatar avatar-sm me-3 my-auto"
+                            />
+                            <div className="d-flex flex-column justify-content-center">
+                              <h6 className="text-sm font-weight-normal mb-1">
+                                Logout
+                              </h6>
+                            </div>
+                          </div>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </div>
+              ) : (
+                ""
+              )}
+              <div className="col-auto"></div>
             </div>
           </ul>
         </div>

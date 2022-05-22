@@ -1,52 +1,68 @@
-import React, { useRef } from "react";
+import React, { useContext } from "react";
+
+import { useForm } from "react-hook-form";
+
 import { Link, useNavigate } from "react-router-dom";
 
 import { Notify } from "notiflix/build/notiflix-notify-aio";
-import { Report } from "notiflix/build/notiflix-report-aio";
 
-import Auth from "../../services/Authentication";
+import Auth from "../../services/Auth";
+import userContext from "../../context/user";
 
 const Form = () => {
-  const form = useRef(null);
+  const { login } = useContext(userContext);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData(form.current);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (formData) => {
     const data = {
-      email: formData.get("email"),
-      password: formData.get("password"),
+      email: formData.email,
+      password: formData.password,
     };
 
-    Auth.getToken(data)
-    .then((res) => {
-      if (res.error) {
-        Notify.failure(res.message);
-      } else {
-        localStorage.setItem("token", res.data.token);
-        Report.success(
-          "Athentication Success",
-          '"Do not try to become a person of success but try to become a person of value." <br/><br/>- Albert Einstein',
-          "Okay"
-        );
+    Auth.getToken(data).then((res) => {
+      if (res.success === true) {
+        login({ email: data.email, token: res.token });
+        Notify.success("Athentication Success");
         navigate("/profile");
+      } else {
+        Notify.failure(res.error);
       }
-    })
-    .catch((err) => {
-      console.log(err);
     });
   };
 
   return (
     <>
-      <form action="/" ref={form} className="text-start">
+      <form onSubmit={handleSubmit(onSubmit)} className="text-start">
         <div className="mb-3">
           <input
             name="email"
             type="email"
             placeholder="Email"
             className="form-control"
-          ></input>
+            {...register("email", {
+              required: {
+                value: true,
+                message: "✉️| Email is required",
+              },
+              pattern: {
+                value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i,
+                message: "✉️| Invalid email address",
+              },
+            })}
+          />
+          {errors.email && (
+            <div className="mt-2">
+              <span className="toast-validator p-2 bg-white text-dark">
+                {errors.email.message}
+              </span>
+            </div>
+          )}
         </div>
         <div className="mb-3">
           <input
@@ -54,18 +70,30 @@ const Form = () => {
             type="password"
             placeholder="password"
             className="form-control"
-          ></input>
+            {...register("password", {
+              required: {
+                value: true,
+                message: "🔐​| Password is required",
+              },
+            })}
+          />
+          {errors.password && (
+            <div className="mt-2">
+              <span className="toast-validator p-2 bg-white text-dark">
+                {errors.password.message}
+              </span>
+            </div>
+          )}
+        </div>
+        <div className="text-center">
+          <button
+            type="submit"
+            className="btn bg-gradient-info w-100 my-4 mb-2"
+          >
+            Log in
+          </button>
         </div>
       </form>
-      <div className="text-center">
-        <button
-          type="submit"
-          onClick={handleSubmit}
-          className="btn bg-gradient-info w-100 my-4 mb-2"
-        >
-          Log in
-        </button>
-      </div>
       <div className="mb-2 position-relative text-center">
         <p className="text-sm font-weight-bold mb-2 text-secondary text-border d-inline z-index-2 bg-white px-3">
           or
