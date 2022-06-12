@@ -1,5 +1,14 @@
 .bg-main-background {
   background-image: url("../assets/img/main-layout.svg");
-  background-size: cover;  
+  background-size: cover;
+}
+
+.MuiDialog-paper {
+  background: rgb(255 255 255) !important; 
+  box-shadow: 0 8px 32px 0 #3788d842 !important;
+  backdrop-filter: blur(0px) !important;
+  -webkit-backdrop-filter: blur(0px) !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
 }
 /*  */

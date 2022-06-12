@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Notify } from "notiflix/build/notiflix-notify-aio";
 
 import Auth from "../../services/Auth";
-import userContext from "../../context/user";
+import userContext from "../../context/Auth";
 
 const Form = () => {
   const { login } = useContext(userContext);
@@ -57,8 +57,8 @@ const Form = () => {
             })}
           />
           {errors.email && (
-            <div className="mt-2">
-              <span className="toast-validator p-2 bg-white text-dark">
+            <div className="mt-1">
+              <span className="toast-validator p-2 bg-white text-danger">
                 {errors.email.message}
               </span>
             </div>
@@ -78,8 +78,8 @@ const Form = () => {
             })}
           />
           {errors.password && (
-            <div className="mt-2">
-              <span className="toast-validator p-2 bg-white text-dark">
+            <div className="mt-1">
+              <span className="toast-validator p-2 bg-white text-danger">
                 {errors.password.message}
               </span>
             </div>

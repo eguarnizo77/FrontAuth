@@ -1,9 +1,9 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 
-import imgProfile from "../../assets/img/hacker.png";
+import UserContext from "../../context/User";
 
-const Header = () => {
-  const [isEdit, setIsEdit] = useState(false);
+const Header = ({userData}) => {
+  const { editUser, isEdit, imageProfile } = useContext(UserContext); 
 
   return (
     <div className="container-fluid">
@@ -25,7 +25,7 @@ const Header = () => {
           <div className="col-auto">
             <div className="avatar avatar-xl position-relative">
               <img
-                src={imgProfile}
+                src={imageProfile.path}
                 alt="profile_image"
                 className="w-100 border-radius-lg shadow-sm"
               />
@@ -33,21 +33,21 @@ const Header = () => {
           </div>
           <div className="col-auto my-auto">
             <div className="h-100">
-              <h5 className="mb-1">Alec Thompson</h5>
-              <p className="mb-0 font-weight-bold text-sm">CEO / Co-Founder</p>
+              <h5 className="mb-1">{userData.username}</h5>
+              <p className="mb-0 font-weight-bold text-sm">{userData.bio}</p>
             </div>
           </div>
           <div className="col-lg-2 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-5">
             <div className="nav-wrapper position-relative end-0">
               <ul className="nav nav-pills nav-fill p-1 bg-transparent">
-                <li className="nav-item">
+                <li className="nav-item">                
                   <button
                     type="button"
-                    className="btn btn-outline-info"
+                    className={`btn btn-outline-info ${isEdit ? 'd-none' : 'd-block'}`}                    
                     onClick={() => {
                       isEdit
-                        ? setIsEdit(false)
-                        : setIsEdit(true);
+                        ? editUser(false)
+                        : editUser(true);
                     }}
                   >
                     Edit

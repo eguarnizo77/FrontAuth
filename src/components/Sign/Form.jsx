@@ -59,8 +59,8 @@ const Form = () => {
             })}
           />
           {errors.username && (
-            <div className="mt-2">
-              <span className="toast-validator p-2 bg-white text-dark">
+            <div className="mt-1">
+              <span className="toast-validator p-2 bg-white text-danger">
                 {errors.username.message}
               </span>
             </div>
@@ -84,8 +84,8 @@ const Form = () => {
             })}
           />
           {errors.email && (
-            <div className="mt-2">
-              <span className="toast-validator p-2 bg-white text-dark">
+            <div className="mt-1">
+              <span className="toast-validator p-2 bg-white text-danger">
                 {errors.email.message}
               </span>
             </div>
@@ -118,7 +118,7 @@ const Form = () => {
           />
           {errors.password && (
             <div className="mt-2">
-              <span className="toast-validator p-2 bg-white text-dark">
+              <span className="toast-validator p-2 bg-white text-danger">
                 {errors.password.message}
               </span>
             </div>
@@ -139,12 +139,12 @@ const Form = () => {
           <label className="form-check-label">
             I agree the
             <a href="" className="text-dark font-weight-bolder">
-              Terms and Conditions
+            &nbsp; Terms and Conditions
             </a>
           </label>
           {errors.conditions && (
-            <div className="mt-2">
-              <span className="toast-validator p-2 bg-white text-dark">
+            <div className="mt-1">
+              <span className="toast-validator p-2 bg-white text-danger">
                 {errors.conditions.message}
               </span>
             </div>
@@ -163,7 +163,7 @@ const Form = () => {
       <p className="text-sm mt-3 mb-0">
         Already have an account?
         <Link to="/login" className="text-dark font-weight-bolder">
-          Login
+        &nbsp; Login
         </Link>
       </p>
     </>

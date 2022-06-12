@@ -2,7 +2,8 @@ import React, { useState, useContext, useEffect } from "react";
 
 import { Link, useNavigate, useLocation  } from "react-router-dom";
 
-import userContext from "../context/user";
+import AuthContext from "../context/Auth";
+import UserContext from "../context/User";
 
 import i18n from "../constants/i18n";
 
@@ -10,19 +11,21 @@ import { BsGlobe } from "react-icons/bs";
 
 import imgSpanish from "../assets/img/spanish.png";
 import imgEnglish from "../assets/img/english.png";
-import imgProfile from "../assets/img/hacker.png";
 import imgLogout from "../assets/img/logout.png";
 
-const NavBar = () => {
+const NavBar = ({userData}) => {
+  const { isLogged, logout } = useContext(AuthContext);
+  const { imageProfile } = useContext(UserContext);  
+  
   const navigate = useNavigate();
-  let location = useLocation();
+  const location = useLocation();
 
-  const [showLanguages, setShowLanguages] = useState(false);
+  const [showLanguages, setShowLanguages] = useState(false);  
   const [showLogout, setShowLogout] = useState(false);
-  const { isLogged, logout } = useContext(userContext);
+
 
   useEffect(() => {
-    if (isLogged === false && location.pathname != "/signup") navigate("/login");    
+    if (isLogged === false && location.pathname != "/signup") navigate("/login");          
   }, [isLogged]);
 
   const handleClickLanguague = (lng) => {
@@ -117,12 +120,12 @@ const NavBar = () => {
                     >
                       <img
                         alt="Image"
-                        src={imgProfile}
+                        src={imageProfile.path}
                         className="avatar avatar-sm border-radius-lg shadow-sm"
                       />
                     </a>
                     <div className="ms-3 mt-3">
-                      <p className="text-sm mb-0 text-white">Charlie Watson</p>
+                      <p className="text-sm mb-0 text-white"> {userData.username}</p>
                     </div>
                     <ul
                       className={`dropdown-menu border-radius-xl mt-lg-2 ${

@@ -4,8 +4,7 @@ const baseUrl = "https://localhost:44371/api";
 const getToken = async (data) => {
   return await axios
     .post(`${baseUrl}/Authentication`, data)
-    .then((response) => {
-      console.log(response.data)
+    .then((response) => {      
       return response.data;      
     })
     .catch((error) => {

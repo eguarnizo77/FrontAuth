@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
+
+import userContext from "../context/User";
 
 import Form from "../components/login/Form";
 
 const Login = () => {
+  const { editUser } = useContext(userContext);
+
+  useEffect(() => {
+    editUser(false);
+  }, []);
 
   return (
     <div className="row mt-lg-n10 mt-md-n11 mt-n10 justify-content-center">

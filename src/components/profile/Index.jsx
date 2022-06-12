@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 
-import imgProfile from "../../assets/img/hacker.png";
+import UserContext from "../../context/User";
 
-const Index = () => {
+const Index = ({userData}) => {
+const {imageProfile} = useContext(UserContext);
+
   return (
     <div className="container-fluid my-3 py-3">
       <div className="row mb-5">
@@ -19,13 +21,21 @@ const Index = () => {
                   <h6>Photo</h6>
                 </div>
                 <div className="col-5">
-                  <div class="avatar">
+                  <div className="avatar">
                     <img
-                      src={imgProfile}
+                      src={imageProfile.path}
                       alt="avatar"
-                      class="border-radius-lg shadow"
+                      className="border-radius-lg shadow"
                     />
                   </div>
+                </div>
+              </div>
+              <div className="row mb-3">
+                <div className="col-4">
+                  <h6>Name</h6>
+                </div>
+                <div className="col-5">
+                  <span className="text-secondary text-sm">{userData.username}</span>
                 </div>
               </div>
               <div className="row mb-3">
@@ -33,7 +43,7 @@ const Index = () => {
                   <h6>Bio</h6>
                 </div>
                 <div className="col-5">
-                  <span class="text-secondary text-sm">Edaurdo Guarnizo</span>
+                  <span className="text-secondary text-sm">{userData.bio}</span>
                 </div>
               </div>
               <div className="row mb-3">
@@ -41,7 +51,7 @@ const Index = () => {
                   <h6>Phone</h6>
                 </div>
                 <div className="col-5">
-                  <span class="text-secondary text-sm">Edaurdo Guarnizo</span>
+                  <span className="text-secondary text-sm">{userData.phone}</span>
                 </div>
               </div>
               <div className="row mb-3">
@@ -49,7 +59,7 @@ const Index = () => {
                   <h6>Email</h6>
                 </div>
                 <div className="col-5">
-                  <span class="text-secondary text-sm">Edaurdo Guarnizo</span>
+                  <span className="text-secondary text-sm">{userData.email}</span>
                 </div>
               </div>
             </div>
