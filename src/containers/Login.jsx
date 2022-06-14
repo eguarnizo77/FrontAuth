@@ -1,13 +1,15 @@
 import React, { useEffect, useContext } from "react";
 
-import userContext from "../context/User";
+import UserContext from "../context/User";
+import AuthContext from "../context/Auth";
 
 import Form from "../components/login/Form";
 
 const Login = () => {
-  const { editUser } = useContext(userContext);
+  const { editUser } = useContext(UserContext);
+  
 
-  useEffect(() => {
+  useEffect(() => {    
     editUser(false);
   }, []);
 

@@ -1,4 +1,4 @@
-import { useState, useCallback, useContext } from "react";
+import { useState, useCallback } from "react";
 
 const useAuth = () => {  
   const [user, setUser] = useState(() => JSON.parse(window.sessionStorage.getItem("user")));

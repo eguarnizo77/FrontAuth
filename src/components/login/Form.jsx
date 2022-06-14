@@ -85,6 +85,11 @@ const Form = () => {
             </div>
           )}
         </div>
+        <p className="text-sm mt-3 mb-0 text-end">
+          <Link to="/passwordReset">            
+            Forgot password?
+          </Link>
+        </p>
         <div className="text-center">
           <button
             type="submit"

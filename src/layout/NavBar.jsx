@@ -1,6 +1,6 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 
-import { Link, useNavigate, useLocation  } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import AuthContext from "../context/Auth";
 import UserContext from "../context/User";
@@ -13,20 +13,12 @@ import imgSpanish from "../assets/img/spanish.png";
 import imgEnglish from "../assets/img/english.png";
 import imgLogout from "../assets/img/logout.png";
 
-const NavBar = ({userData}) => {
+const NavBar = ({ userData }) => {
   const { isLogged, logout } = useContext(AuthContext);
-  const { imageProfile } = useContext(UserContext);  
-  
-  const navigate = useNavigate();
-  const location = useLocation();
+  const { imageProfile } = useContext(UserContext);
 
-  const [showLanguages, setShowLanguages] = useState(false);  
+  const [showLanguages, setShowLanguages] = useState(false);
   const [showLogout, setShowLogout] = useState(false);
-
-
-  useEffect(() => {
-    if (isLogged === false && location.pathname != "/signup") navigate("/login");          
-  }, [isLogged]);
 
   const handleClickLanguague = (lng) => {
     i18n.changeLanguage(lng);
@@ -125,7 +117,9 @@ const NavBar = ({userData}) => {
                       />
                     </a>
                     <div className="ms-3 mt-3">
-                      <p className="text-sm mb-0 text-white"> {userData.username}</p>
+                      <p className="text-sm mb-0 text-white">                        
+                        {userData ? userData.username : ""}
+                      </p>
                     </div>
                     <ul
                       className={`dropdown-menu border-radius-xl mt-lg-2 ${

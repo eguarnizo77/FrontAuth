@@ -8,8 +8,6 @@ import AuthContext from "../context/Auth";
 import User from "../services/User";
 import ImageProfileService from "../services/ImageProfile";
 
-import { Notify } from "notiflix/build/notiflix-notify-aio";
-
 import NavBar from "../layout/NavBar";
 import Header from "../components/profile/Header";
 import Index from "../components/profile/Index";
