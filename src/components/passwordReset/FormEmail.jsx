@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { useForm } from "react-hook-form";
 
+import { Notify } from "notiflix/build/notiflix-notify-aio";
+
+import Auth from "../../services/Auth";
+
+import AuthContext from "../../context/Auth";
+
 const FormEmail = () => {
+  const { editPasswordReset } = useContext(AuthContext);
+
   const {
     register,
     handleSubmit,
@@ -13,7 +21,16 @@ const FormEmail = () => {
     const data = {
       email: formData.email,
     };
-    console.log(data);
+
+    Auth.getPasswordReset(data).then((res) => {
+      if (res.success === true) {      
+        console.log(res.code);
+        editPasswordReset({ email: data.email, code: res.code, form: 2 });
+        Notify.success("Verification code sent successfully");
+      } else {
+        Notify.failure(res.error);
+      }
+    });
   };
 
   return (
@@ -56,7 +73,7 @@ const FormEmail = () => {
                 <div className="text-center">
                   <button
                     type="submit"
-                    className="btn btn-lg bg-gradient-dark mt-3 mb-0"
+                    className="btn bg-gradient-dark mt-3 mb-0"
                   >
                     Send password reset email
                   </button>
