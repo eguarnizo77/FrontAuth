@@ -1,7 +1,11 @@
 {
   "name": "frontauth",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.0",  
+  "engines": {
+    "node": "16.x",
+    "npm": "6.x"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
