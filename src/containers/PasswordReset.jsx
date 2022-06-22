@@ -6,12 +6,13 @@ import NavBar from "../layout/NavBar";
 import Header from "../components/passwordReset/Header";
 import FormEmail from "../components/passwordReset/FormEmail";
 import FormVerification from "../components/passwordReset/FormVerification";
+import FormNewPassword from "../components/passwordReset/FormNewPassword";
 import Footer from "../layout/Footer";
 
 import "../styles/dashboard.css";
 
 const PasswordReset = () => {
-  const {passwordReset } = useContext(AuthContext);
+  const { passwordReset } = useContext(AuthContext);
 
   return (
     <>
@@ -20,6 +21,7 @@ const PasswordReset = () => {
         <Header />
         {passwordReset.form === 1 ? <FormEmail /> : ""}
         {passwordReset.form === 2 ? <FormVerification /> : ""}
+        {passwordReset.form === 3 ? <FormNewPassword /> : ""}
       </div>
       <Footer />
     </>

@@ -28,8 +28,8 @@ const Form = () => {
       state: 1,
     };
 
-    User.create(data).then((res) => {      
-      if (res.success === true) {
+    User.createUser(data).then((res) => {      
+      if (res.success) {
         Report.success(
           "User created successfully",
           "<b> Welcome <b/> to the family",

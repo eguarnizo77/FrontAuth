@@ -17467,7 +17467,7 @@ hr.horizontal.gray-light {
   }
   .navbar.navbar-transparent .navbar-collapse.collapsing,
   .navbar.navbar-transparent .navbar-collapse.show {
-    background: #fff;
+    background: #0000000d;
   }
   .navbar.navbar-transparent .navbar-collapse.show .nav-link,
   .navbar.navbar-transparent .navbar-collapse.show i {

@@ -4,8 +4,8 @@ const baseUrl = "https://localhost:44371/api";
 const getToken = async (data) => {
   return await axios
     .post(`${baseUrl}/Authentication`, data)
-    .then((response) => {      
-      return response.data;      
+    .then((response) => {
+      return response.data;
     })
     .catch((error) => {
       if (error.response) {
@@ -17,8 +17,8 @@ const getToken = async (data) => {
 const getPasswordReset = async (data) => {
   return await axios
     .post(`${baseUrl}/Authentication/PasswordReset`, data)
-    .then((response) => {      
-      return response.data;      
+    .then((response) => {
+      return response.data;
     })
     .catch((error) => {
       if (error.response) {
@@ -27,5 +27,17 @@ const getPasswordReset = async (data) => {
     });
 };
 
+const updatePasswordUser = async (data) => {
+  return await axios
+    .post(`${baseUrl}/Authentication/UpdatePassword`, data)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      if (error.response) {
+        return error.response.data;
+      }
+    });
+};
 
-export default { getToken, getPasswordReset };
+export default { getToken, getPasswordReset, updatePasswordUser };

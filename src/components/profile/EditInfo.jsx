@@ -45,9 +45,10 @@ const EditInfo = ({ userData }) => {
     };    
 
     User.UpdateUser(data, user).then((res) => {
-      if (res.success === true) {      
+      if (res.success) {      
         editUserData(data);
         Notify.success("Updated user");
+        editUser(false)
       }
     });
   };
