@@ -3616,7 +3616,7 @@ fieldset:disabled .btn {
   opacity: 0;
 }
 .collapse:not(.show) {
-  display: none;
+  display: block;
 }
 .collapsing {
   height: 0;

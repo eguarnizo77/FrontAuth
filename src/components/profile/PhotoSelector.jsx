@@ -8,21 +8,26 @@ import User from "../../services/User";
 
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import { Notify } from "notiflix";
 
-const PhotoSelector = ({userData}) => {
+import { Notify } from "notiflix";
+import { Loading } from 'notiflix/build/notiflix-loading-aio';
+
+const PhotoSelector = ({ userData }) => {
   const { openModal, editImgProfile, imageProfile } = useContext(UserContext);
   const { user } = useContext(AuthContext);
 
   const [imagesData, setImagesData] = useState([]);
   const [imageProfileSelect, setImageProfileSelect] = useState(imageProfile);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     ImageProfile.getAllImages(user).then((resImg) => {
       if (resImg) {
         setImagesData(resImg);
       }
     });
+    setIsLoading(false);
   }, []);
 
   const HandleClickSelect = (id, path) => {
@@ -45,8 +50,8 @@ const PhotoSelector = ({userData}) => {
     <>
       <div className="card-header">
         <h5>Images Profile</h5>
-      </div>
-
+      </div>  
+      {isLoading && Loading.pulse()}    
       <DialogContent>
         <div className="row">
           {imagesData.map((item) => (
@@ -81,7 +86,7 @@ const PhotoSelector = ({userData}) => {
         >
           Exit
         </button>
-      </DialogActions>
+      </DialogActions>      
     </>
   );
 };
