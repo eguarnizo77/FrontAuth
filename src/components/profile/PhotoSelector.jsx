@@ -6,23 +6,36 @@ import AuthContext from "../../context/Auth";
 import ImageProfile from "../../services/ImageProfile";
 import User from "../../services/User";
 
+import LoadingButton from "../utils/loadingButton";
+
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import { Notify } from "notiflix";
 
-const PhotoSelector = ({userData}) => {
+import { Notify } from "notiflix";
+import { Block } from 'notiflix/build/notiflix-block-aio';
+
+const PhotoSelector = ({ userData }) => {
   const { openModal, editImgProfile, imageProfile } = useContext(UserContext);
   const { user } = useContext(AuthContext);
 
   const [imagesData, setImagesData] = useState([]);
-  const [imageProfileSelect, setImageProfileSelect] = useState(imageProfile);
+  const [imageProfileSelect, setImageProfileSelect] = useState(imageProfile);  
+  const [isLoadingButton, setIsLoadingButton] = useState(false);
 
-  useEffect(() => {
+  useEffect(() => {    
+    setIsLoadingButton(true);
+    Block.pulse(".js-element", "Please wait...");   
+
     ImageProfile.getAllImages(user).then((resImg) => {
-      if (resImg) {
-        setImagesData(resImg);
-      }
-    });
+      setTimeout(() => {
+        if (resImg) {
+          setImagesData(resImg);
+        }   
+        Block.remove('.js-element');  
+        setIsLoadingButton(false);
+      }, 1000);
+               
+    });   
   }, []);
 
   const HandleClickSelect = (id, path) => {
@@ -30,6 +43,8 @@ const PhotoSelector = ({userData}) => {
   };
 
   const HandleClickSave = () => {
+    setIsLoadingButton(true);
+
     const _userData = userData;
     _userData.image = imageProfileSelect.id;
 
@@ -39,16 +54,18 @@ const PhotoSelector = ({userData}) => {
         Notify.success("Updated profile picture");
       }
     });
+
+    setIsLoadingButton(false);    
   };
 
   return (
     <>
       <div className="card-header">
         <h5>Images Profile</h5>
-      </div>
-
+      </div>        
       <DialogContent>
-        <div className="row">
+        <div className="row js-element">
+
           {imagesData.map((item) => (
             <div
               key={item.id}
@@ -60,7 +77,7 @@ const PhotoSelector = ({userData}) => {
               <div className="avatar avatar-xl position-relative">
                 <img src={item.path} />
               </div>
-            </div>
+            </div>            
           ))}
         </div>
       </DialogContent>
@@ -71,7 +88,7 @@ const PhotoSelector = ({userData}) => {
           name="button"
           onClick={HandleClickSave}
         >
-          Save
+          <LoadingButton isLoading={isLoadingButton} textButton={"Save"} />
         </button>
         <button
           className="btn btn-outline-dark btn-sm mb-0"
@@ -81,7 +98,7 @@ const PhotoSelector = ({userData}) => {
         >
           Exit
         </button>
-      </DialogActions>
+      </DialogActions>      
     </>
   );
 };

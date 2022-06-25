@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 
 import { sha256 } from "js-sha256";
 
@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { Notify } from "notiflix";
 
 import Photo from "../../components/profile/EditPhoto";
+import LoadingButton from "../utils/loadingButton";
 
 import UserContext from "../../context/User";
 import AuthContext from "../../context/Auth";
@@ -16,6 +17,7 @@ import AuthContext from "../../context/Auth";
 const EditInfo = ({ userData }) => {
   const { editUser, editUserData } = useContext(UserContext);
   const { user } = useContext(AuthContext);
+  const [isLoadingSave, setIsLoadingSave] = useState(false);
 
   const {
     register,
@@ -25,11 +27,12 @@ const EditInfo = ({ userData }) => {
     defaultValues: {
       username: userData.username,
       bio: userData.bio,
-      phone: userData.phone
-    }
+      phone: userData.phone,
+    },
   });
 
   const onSubmit = (formData) => {
+    setIsLoadingSave(true);
     const data = {
       id: userData.id,
       email: userData.email,
@@ -42,13 +45,14 @@ const EditInfo = ({ userData }) => {
       bio: formData.bio,
       phone: formData.phone,
       state: 1,
-    };    
-
+    };
+    
     User.UpdateUser(data, user).then((res) => {
-      if (res.success) {      
+      if (res.success) {
+        console.log("actualizo")
         editUserData(data);
         Notify.success("Updated user");
-        editUser(false)
+        setIsLoadingSave(false);
       }
     });
   };
@@ -75,7 +79,7 @@ const EditInfo = ({ userData }) => {
                         name="username"
                         type="text"
                         placeholder="Username"
-                        className="form-control"                        
+                        className="form-control"
                         {...register("username", {
                           required: {
                             value: true,
@@ -188,9 +192,10 @@ const EditInfo = ({ userData }) => {
                   <div className="col-lg-12 text-end">
                     <button
                       type="submit"
-                      className="btn bg-gradient-info my-4 mb-2 me-4"
+                      className="btn bg-gradient-info my-4 mb-2 me-4"                      
+                      disabled={isLoadingSave}
                     >
-                      Save
+                      <LoadingButton isLoading={isLoadingSave} textButton={"Save"} />
                     </button>
                     <button
                       className="btn btn-outline-dark my-4 mb-2"

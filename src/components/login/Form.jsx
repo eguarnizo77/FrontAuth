@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 
 import { useForm } from "react-hook-form";
 
@@ -6,11 +6,14 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { Notify } from "notiflix/build/notiflix-notify-aio";
 
+import LoadingButton from "../utils/loadingButton";
+
 import Auth from "../../services/Auth";
 import userContext from "../../context/Auth";
 
 const Form = () => {
   const { login } = useContext(userContext);
+  const [isLoadingButton, setIsLoadingButton] = useState(false);
   const navigate = useNavigate();
 
   const {
@@ -20,6 +23,7 @@ const Form = () => {
   } = useForm();
 
   const onSubmit = (formData) => {
+    setIsLoadingButton(true);
     const data = {
       email: formData.email,
       password: formData.password,
@@ -34,6 +38,7 @@ const Form = () => {
         Notify.failure(res.error);
       }
     });
+    setIsLoadingButton(false);
   };
 
   return (
@@ -86,16 +91,14 @@ const Form = () => {
           )}
         </div>
         <p className="text-sm mt-3 mb-0 text-end">
-          <Link to="/passwordReset">            
-            Forgot password?
-          </Link>
+          <Link to="/passwordReset">Forgot password?</Link>
         </p>
         <div className="text-center">
           <button
             type="submit"
             className="btn bg-gradient-info w-100 my-4 mb-2"
           >
-            Log in
+            <LoadingButton isLoading={isLoadingButton} textButton={"Log in"} />
           </button>
         </div>
       </form>

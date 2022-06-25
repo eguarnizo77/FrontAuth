@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "https://localhost:44371/api";
+const baseUrl = "https://backauth.herokuapp.com/api";
 
 const getAllImages = async (data) => {
   return await axios
