@@ -36,13 +36,11 @@ const EditPhoto = ({userData}) => {
           </div>
         </div>
       </div>
-      {isOpenModal ? (
+      {isOpenModal && 
         <Modal>
           <PhotoSelector userData={userData} />
         </Modal>
-      ) : (
-        ""
-      )}
+      }
     </div>
   );
 };

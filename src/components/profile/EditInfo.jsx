@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { Notify } from "notiflix";
 
 import Photo from "../../components/profile/EditPhoto";
+import LoadingButton from "../utils/loadingButton";
 
 import UserContext from "../../context/User";
 import AuthContext from "../../context/Auth";
@@ -45,7 +46,7 @@ const EditInfo = ({ userData }) => {
       phone: formData.phone,
       state: 1,
     };
-    console.log(data)
+    
     User.UpdateUser(data, user).then((res) => {
       if (res.success) {
         console.log("actualizo")
@@ -194,9 +195,7 @@ const EditInfo = ({ userData }) => {
                       className="btn bg-gradient-info my-4 mb-2 me-4"                      
                       disabled={isLoadingSave}
                     >
-                      {isLoadingSave
-                        ? <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        : "Save"}
+                      <LoadingButton isLoading={isLoadingSave} textButton={"Save"} />
                     </button>
                     <button
                       className="btn btn-outline-dark my-4 mb-2"
