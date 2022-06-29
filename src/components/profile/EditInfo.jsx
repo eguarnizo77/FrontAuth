@@ -16,8 +16,9 @@ import AuthContext from "../../context/Auth";
 
 const EditInfo = ({ userData }) => {
   const { editUser, editUserData } = useContext(UserContext);
-  const { user } = useContext(AuthContext);
-  const [isLoadingSave, setIsLoadingSave] = useState(false);
+  const { user } = useContext(AuthContext);  
+  
+  const [isLoadingButton, setIsLoadingButton] = useState(false);
 
   const {
     register,
@@ -32,7 +33,8 @@ const EditInfo = ({ userData }) => {
   });
 
   const onSubmit = (formData) => {
-    setIsLoadingSave(true);
+    setIsLoadingButton(true);
+
     const data = {
       id: userData.id,
       email: userData.email,
@@ -48,13 +50,13 @@ const EditInfo = ({ userData }) => {
     };
     
     User.UpdateUser(data, user).then((res) => {
-      if (res.success) {
-        console.log("actualizo")
+      if (res.success) {        
         editUserData(data);
         Notify.success("Updated user");
-        setIsLoadingSave(false);
+        setIsLoadingButton(false);
       }
     });
+
   };
 
   return (
@@ -193,9 +195,9 @@ const EditInfo = ({ userData }) => {
                     <button
                       type="submit"
                       className="btn bg-gradient-info my-4 mb-2 me-4"                      
-                      disabled={isLoadingSave}
+                      disabled={isLoadingButton}
                     >
-                      <LoadingButton isLoading={isLoadingSave} textButton={"Save"} />
+                      <LoadingButton isLoading={isLoadingButton} textButton={"Save"} />
                     </button>
                     <button
                       className="btn btn-outline-dark my-4 mb-2"

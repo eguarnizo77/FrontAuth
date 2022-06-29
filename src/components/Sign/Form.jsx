@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useForm } from "react-hook-form";
 
@@ -9,7 +9,11 @@ import { Report } from "notiflix/build/notiflix-report-aio";
 
 import User from "../../services/User";
 
+import LoadingButton from "../utils/loadingButton";
+
 const Form = () => {
+  const [isLoadingButton, setIsLoadingButton] = useState(false);
+
   const navigate = useNavigate();
 
   const {
@@ -18,11 +22,14 @@ const Form = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (formData) => {    
+  const onSubmit = (formData) => {   
+    setIsLoadingButton(true);
+
     const data = {
       email: formData.email,
       password: formData.password,
       username: formData.username,
+      image: 1,
       bio: "",
       phone: "",
       state: 1,
@@ -35,10 +42,11 @@ const Form = () => {
           "<b> Welcome <b/> to the family",
           "Okay"
         );
-        navigate("/login");
+        navigate("/");
       } else {
         Notify.failure(res.error);
       }
+      setIsLoadingButton(false);
     });
   };
 
@@ -155,14 +163,15 @@ const Form = () => {
           <button
             type="submit"
             className="btn bg-gradient-dark w-100 my-4 mb-2"
+            disabled={isLoadingButton}
           >
-            Sign up
+            <LoadingButton isLoading={isLoadingButton} textButton={"Sign up"} />            
           </button>
         </div>
       </form>
       <p className="text-sm mt-3 mb-0">
         Already have an account?
-        <Link to="/login" className="text-dark font-weight-bolder">
+        <Link to="/" className="text-dark font-weight-bolder">
         &nbsp; Login
         </Link>
       </p>

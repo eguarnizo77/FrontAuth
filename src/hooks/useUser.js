@@ -5,6 +5,7 @@ const useUser = () => {
   const [isOpenMdl, setIsOpenMdl] = useState(false);
   const [userData, setUserData] = useState({});
   const [imgProfile, setImgProfile] = useState({});
+  const [isLoadingButton, setIsLoadingButton] = useState(false);
 
   const editImgProfile = useCallback(
     (image) => {            
@@ -34,15 +35,15 @@ const useUser = () => {
     [setIsOpenMdl]
   );
   
-  return {
+  return {    
+    isEdit : isEditProfile,    
+    userData : userData,  
+    isOpenModal : isOpenMdl,    
+    imageProfile: imgProfile,        
     editUser,
-    isEdit : isEditProfile,
     editUserData,
-    userData : userData,
     openModal,
-    isOpenModal : isOpenMdl,
-    editImgProfile,
-    imageProfile: imgProfile
+    editImgProfile,    
   };
 };
 

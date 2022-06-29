@@ -9,11 +9,13 @@ import { Notify } from "notiflix/build/notiflix-notify-aio";
 import LoadingButton from "../utils/loadingButton";
 
 import Auth from "../../services/Auth";
-import userContext from "../../context/Auth";
+
+import AuthContext from "../../context/Auth";
 
 const Form = () => {
-  const { login } = useContext(userContext);
+  const { login } = useContext(AuthContext);  
   const [isLoadingButton, setIsLoadingButton] = useState(false);
+
   const navigate = useNavigate();
 
   const {
@@ -24,6 +26,7 @@ const Form = () => {
 
   const onSubmit = (formData) => {
     setIsLoadingButton(true);
+
     const data = {
       email: formData.email,
       password: formData.password,
@@ -33,12 +36,13 @@ const Form = () => {
       if (res.success === true) {
         login({ email: data.email, token: res.token });
         Notify.success("Athentication Success");
-        navigate("/profile");
+        navigate("/profile");        
       } else {
-        Notify.failure(res.error);
+        Notify.failure(res.error);        
       }
+      setIsLoadingButton(false);
     });
-    setIsLoadingButton(false);
+    
   };
 
   return (
@@ -97,6 +101,7 @@ const Form = () => {
           <button
             type="submit"
             className="btn bg-gradient-info w-100 my-4 mb-2"
+            disabled={isLoadingButton}
           >
             <LoadingButton isLoading={isLoadingButton} textButton={"Log in"} />
           </button>

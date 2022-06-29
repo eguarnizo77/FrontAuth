@@ -7,12 +7,11 @@ import UserContext from "../context/User";
 import useAuth from "../hooks/useAuth";
 import useUser from "../hooks/useUser";
 
-import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Profile from "../pages/Profile";
 import PasswordReset from "../pages/PasswordReset";
-import NotFound from "../pages/Home";
+import NotFound from "../pages/NotFound";
 
 function App() {
   const stateAuth = useAuth();
@@ -22,12 +21,11 @@ function App() {
       <UserContext.Provider value={stateUser}>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="login" element={<Login />} />
+            <Route path="/" element={<Login />} />            
             <Route path="signup" element={<Signup />} />
             <Route path="profile" element={<Profile />} />
-            <Route path="passwordreset" element={<PasswordReset />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="passwordreset" element={<PasswordReset />} />            
+            <Route path="*" element={<NotFound />} />    
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>

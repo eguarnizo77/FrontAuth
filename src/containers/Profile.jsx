@@ -36,8 +36,8 @@ const Profile = () => {
         }
       });
     } else {      
-      navigate("/login");
-    }
+      navigate("/");
+    }    
   }, [isLogged]);
 
   return (

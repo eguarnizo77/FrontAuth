@@ -29,7 +29,7 @@ const NavBar = ({ userData }) => {
     <nav className="navbar navbar-expand-lg position-absolute top-0 z-index-3 w-100 shadow-none my-3 navbar-transparent mt-4">
       <div className="container">
         <Link
-          to="/login"
+          to="/"
           className="navbar-brand font-weight-bolder ms-lg-0 ms-3 text-white"
         >
           AUTHENTICATION APP
@@ -96,7 +96,7 @@ const NavBar = ({ userData }) => {
                   </ul>
                 </li>
               </div>
-              {isLogged ? (
+              {isLogged && (
                 <div className="col-auto m-auto">
                   <li className="nav-item dropdown pe-2 d-flex align-items-center">
                     <a
@@ -117,7 +117,7 @@ const NavBar = ({ userData }) => {
                       />
                     </a>
                     <div className="ms-3 mt-3">
-                      <p className="text-sm mb-0 text-white">                        
+                      <p className="text-sm mb-0 text-white">
                         {userData ? userData.username : ""}
                       </p>
                     </div>
@@ -147,8 +147,6 @@ const NavBar = ({ userData }) => {
                     </ul>
                   </li>
                 </div>
-              ) : (
-                ""
               )}
               <div className="col-auto"></div>
             </div>
