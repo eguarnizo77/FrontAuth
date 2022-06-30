@@ -15,9 +15,10 @@ const FormVerification = () => {
     formState: { errors },
   } = useForm();
 
-  const handleKeyup = (e, inputFocus) => {    
-    if (e.keyCode === 8 || e.target.value === "") return;
-    document.getElementsByName(inputFocus)[0].focus();
+  const handleKeyup = (e, inputFocus) => {   
+    if (e.keyCode === 8 || e.target.value === "") return;    
+    e.target.value = e.target.value.slice(0, 1);
+    if (inputFocus) document.getElementsByName(inputFocus)[0].focus();
   };
 
   const onSubmit = (formData) => {
@@ -53,8 +54,7 @@ const FormVerification = () => {
                         name="codeOne"
                         type="number"
                         className="form-control form-control-lg"
-                        autoComplete="off"
-                        maxLength="1"
+                        autoComplete="off"                        
                         onKeyUp={(e) => handleKeyup(e, "codeTwo")}
                         {...register("codeOne", {
                           required: {
@@ -73,8 +73,7 @@ const FormVerification = () => {
                         name="codeTwo"
                         type="number"
                         className="form-control form-control-lg"
-                        autoComplete="off"
-                        maxLength="1"
+                        autoComplete="off"                        
                         onKeyUp={(e) => handleKeyup(e, "codeThree")}
                         {...register("codeTwo", {
                           required: {
@@ -93,8 +92,7 @@ const FormVerification = () => {
                         name="codeThree"
                         type="number"
                         className="form-control form-control-lg"
-                        autoComplete="off"
-                        maxLength="1"
+                        autoComplete="off"                        
                         onKeyUp={(e) => handleKeyup(e, "codeFour")}
                         {...register("codeThree", {
                           required: {
@@ -114,7 +112,7 @@ const FormVerification = () => {
                         type="number"
                         className="form-control form-control-lg"
                         autoComplete="off"
-                        maxLength="1"
+                        onKeyUp={(e) => handleKeyup(e, "")}
                         {...register("codeFour", {
                           required: {
                             value: true,

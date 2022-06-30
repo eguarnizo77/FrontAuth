@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "https://backauth.herokuapp.com/api";
+const baseUrl = import.meta.env.VITE_APP_BASE_URL;
 
 const getAllImages = async (data) => {
   return await axios

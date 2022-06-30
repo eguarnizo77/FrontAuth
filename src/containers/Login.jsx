@@ -7,10 +7,12 @@ import Form from "../components/login/Form";
 
 const Login = () => {
   const { editUser } = useContext(UserContext);
+  const { editPasswordReset } = useContext(AuthContext);
   
 
   useEffect(() => {    
     editUser(false);
+    editPasswordReset({ form: 1 });
   }, []);
 
   return (

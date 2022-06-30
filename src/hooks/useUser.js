@@ -4,8 +4,7 @@ const useUser = () => {
   const [isEditProfile, setIsEditProfile] = useState(false);
   const [isOpenMdl, setIsOpenMdl] = useState(false);
   const [userData, setUserData] = useState({});
-  const [imgProfile, setImgProfile] = useState({});
-  const [isLoadingButton, setIsLoadingButton] = useState(false);
+  const [imgProfile, setImgProfile] = useState({});  
 
   const editImgProfile = useCallback(
     (image) => {            

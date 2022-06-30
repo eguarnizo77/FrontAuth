@@ -77,7 +77,7 @@ const Form = () => {
           <input
             name="password"
             type="password"
-            placeholder="password"
+            placeholder="Password"
             className="form-control"
             {...register("password", {
               required: {

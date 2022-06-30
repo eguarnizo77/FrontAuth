@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 
 import { useForm } from "react-hook-form";
 
@@ -8,8 +8,12 @@ import Auth from "../../services/Auth";
 
 import AuthContext from "../../context/Auth";
 
+import LoadingButton from "../utils/loadingButton";
+
 const FormEmail = () => {
   const { editPasswordReset } = useContext(AuthContext);
+
+  const [isLoadingButton, setIsLoadingButton] = useState(false);
 
   const {
     register,
@@ -18,18 +22,20 @@ const FormEmail = () => {
   } = useForm();
 
   const onSubmit = (formData) => {
+    setIsLoadingButton(true);
+
     const data = {
       email: formData.email,
     };
 
     Auth.getPasswordReset(data).then((res) => {
-      if (res.success === true) {      
-        console.log(res.code);
+      if (res.success === true) {        
         editPasswordReset({ email: data.email, code: res.code, form: 2 });
         Notify.success("Verification code sent successfully");
       } else {
         Notify.failure(res.error);
       }
+      setIsLoadingButton(false);
     });
   };
 
@@ -74,8 +80,12 @@ const FormEmail = () => {
                   <button
                     type="submit"
                     className="btn bg-gradient-dark mt-3 mb-0"
+                    disabled={isLoadingButton}
                   >
-                    Send password reset email
+                    <LoadingButton
+                      isLoading={isLoadingButton}
+                      textButton={"Send password reset email"}
+                    />
                   </button>
                 </div>
               </form>
