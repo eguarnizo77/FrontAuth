@@ -1,0 +1,20 @@
+{
+    "short_name": "Authentication-App",
+    "name": "Authentication-App",
+    "description": "application authentication",
+    "icons": [
+      {
+        "src": "assets/iconx512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      },
+      {
+        "src": "assets/iconx128.png",
+        "sizes": "144x144",
+        "type": "image/png"
+      }
+    ],    
+    "background_color": "#222",
+    "theme_color": "#222",
+    "display": "standalone"
+  }
